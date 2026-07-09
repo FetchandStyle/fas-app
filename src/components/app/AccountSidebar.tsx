@@ -1,0 +1,241 @@
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+type SidebarItem = {
+  href: string;
+  label: string;
+  icon: React.ReactNode;
+};
+
+const ICON_SIZE = 22;
+const STROKE = 1.5;
+
+function Icon({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="flex h-[22px] w-[22px] shrink-0 items-center justify-center">
+      {children}
+    </span>
+  );
+}
+
+const PRIMARY_ITEMS: SidebarItem[] = [
+  {
+    href: '/dashboard',
+    label: 'Dashboard',
+    icon: (
+      <Icon>
+        <svg width={ICON_SIZE} height={ICON_SIZE} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={STROKE}>
+          <path d="M3 10.5L12 4l9 6.5V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1v-9.5z" />
+        </svg>
+      </Icon>
+    ),
+  },
+  {
+    href: '/scans',
+    label: 'Scans of My Home',
+    icon: (
+      <Icon>
+        <svg width={ICON_SIZE} height={ICON_SIZE} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={STROKE}>
+          <path d="M4 7h16a1 1 0 011 1v11a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z" />
+          <path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2" />
+          <circle cx="12" cy="13" r="3" />
+        </svg>
+      </Icon>
+    ),
+  },
+  {
+    href: '/wishlist',
+    label: 'Wishlist',
+    icon: (
+      <Icon>
+        <svg width={ICON_SIZE} height={ICON_SIZE} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={STROKE}>
+          <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z" />
+        </svg>
+      </Icon>
+    ),
+  },
+  {
+    href: '/purchases',
+    label: 'Previous Purchases',
+    icon: (
+      <Icon>
+        <svg width={ICON_SIZE} height={ICON_SIZE} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={STROKE}>
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+          <path d="M3 6h18" />
+          <path d="M16 10a4 4 0 01-8 0" />
+        </svg>
+      </Icon>
+    ),
+  },
+  {
+    href: '/profile',
+    label: 'My Profile & KYC',
+    icon: (
+      <Icon>
+        <svg width={ICON_SIZE} height={ICON_SIZE} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={STROKE}>
+          <circle cx="12" cy="8" r="4" />
+          <path d="M4 20c0-4 3.6-6 8-6s8 2 8 6" />
+        </svg>
+      </Icon>
+    ),
+  },
+];
+
+const SECONDARY_ITEMS: SidebarItem[] = [
+  {
+    href: '/room-builder',
+    label: 'Room Builder',
+    icon: (
+      <Icon>
+        <svg width={ICON_SIZE} height={ICON_SIZE} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={STROKE}>
+          <path d="M12 2l8 4.5v7L12 18l-8-4.5v-7L12 2z" />
+          <path d="M12 11.5V18" />
+          <path d="M12 11.5L4 7" />
+          <path d="M12 11.5l8-4.5" />
+        </svg>
+      </Icon>
+    ),
+  },
+  {
+    href: '/design-history',
+    label: 'Design History',
+    icon: (
+      <Icon>
+        <svg width={ICON_SIZE} height={ICON_SIZE} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={STROKE}>
+          <path d="M3 12a9 9 0 109-9 9.75 9.75 0 00-6.74 2.74L3 8" />
+          <path d="M3 3v5h5" />
+          <path d="M12 7v5l3 2" />
+        </svg>
+      </Icon>
+    ),
+  },
+  {
+    href: '/saved-rooms',
+    label: 'Saved Rooms',
+    icon: (
+      <Icon>
+        <svg width={ICON_SIZE} height={ICON_SIZE} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={STROKE}>
+          <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z" />
+        </svg>
+      </Icon>
+    ),
+  },
+  {
+    href: '/addresses',
+    label: 'My Addresses',
+    icon: (
+      <Icon>
+        <svg width={ICON_SIZE} height={ICON_SIZE} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={STROKE}>
+          <path d="M12 21s-6-4.35-6-10a6 6 0 1112 0c0 5.65-6 10-6 10z" />
+          <circle cx="12" cy="11" r="2.5" />
+        </svg>
+      </Icon>
+    ),
+  },
+  {
+    href: '/payment',
+    label: 'Payment Methods',
+    icon: (
+      <Icon>
+        <svg width={ICON_SIZE} height={ICON_SIZE} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={STROKE}>
+          <rect x="2" y="5" width="20" height="14" rx="2" />
+          <path d="M2 10h20" />
+        </svg>
+      </Icon>
+    ),
+  },
+  {
+    href: '/settings',
+    label: 'Account Settings',
+    icon: (
+      <Icon>
+        <svg width={ICON_SIZE} height={ICON_SIZE} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={STROKE}>
+          <circle cx="12" cy="12" r="3" />
+          <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
+        </svg>
+      </Icon>
+    ),
+  },
+  {
+    href: '/help',
+    label: 'Help & Support',
+    icon: (
+      <Icon>
+        <svg width={ICON_SIZE} height={ICON_SIZE} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={STROKE}>
+          <circle cx="12" cy="12" r="9" />
+          <path d="M9.09 9a3 3 0 015.83 1c0 2-3 2-3 4" />
+          <path d="M12 17h.01" />
+        </svg>
+      </Icon>
+    ),
+  },
+];
+
+function SidebarLink({ item, active }: { item: SidebarItem; active: boolean }) {
+  return (
+    <Link
+      href={item.href}
+      className={`flex items-center gap-3 rounded-lg px-4 py-3 text-[15px] leading-none transition-colors ${
+        active
+          ? 'bg-[#FFF0F5] font-semibold text-[#C2185B]'
+          : 'font-medium text-[#1F2937] hover:bg-gray-50'
+      }`}
+    >
+      <span className={active ? 'text-[#DB2777]' : 'text-[#374151]'}>{item.icon}</span>
+      <span className="truncate">{item.label}</span>
+    </Link>
+  );
+}
+
+function SidebarDivider() {
+  return <div className="my-3 border-t border-[#E5E7EB]" />;
+}
+
+export default function AccountSidebar() {
+  const pathname = usePathname();
+
+  function isActive(href: string) {
+    if (href === '/dashboard') return pathname === '/dashboard';
+    return pathname === href || pathname.startsWith(`${href}/`);
+  }
+
+  return (
+    <aside className="account-sidebar hidden w-[260px] shrink-0 border-r border-[#E5E7EB] bg-white lg:block">
+      <div className="sticky top-[72px] flex h-[calc(100vh-72px)] flex-col px-5 py-8">
+        <h2 className="mb-6 px-1 text-[17px] font-bold tracking-tight text-[#111827]">
+          My Account
+        </h2>
+
+        <nav className="flex flex-1 flex-col gap-0.5">
+          {PRIMARY_ITEMS.map((item) => (
+            <SidebarLink key={item.href} item={item} active={isActive(item.href)} />
+          ))}
+
+          <SidebarDivider />
+
+          {SECONDARY_ITEMS.map((item) => (
+            <SidebarLink key={item.href} item={item} active={isActive(item.href)} />
+          ))}
+        </nav>
+
+        <SidebarDivider />
+
+        <Link
+          href="/"
+          className="flex items-center gap-3 rounded-lg px-4 py-3 text-[15px] font-medium text-[#374151] transition-colors hover:bg-gray-50"
+        >
+          <Icon>
+            <svg width={ICON_SIZE} height={ICON_SIZE} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={STROKE}>
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h2" />
+              <path d="M16 17l5-5-5-5" />
+              <path d="M21 12H9" />
+            </svg>
+          </Icon>
+          Sign Out
+        </Link>
+      </div>
+    </aside>
+  );
+}
