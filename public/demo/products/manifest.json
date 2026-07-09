@@ -1,0 +1,11 @@
+{
+  "_comment": "SKU -> source image URL. Run scripts/download-demo-images.mjs to fetch these into this folder as <sku>.jpg. Fill in real Hernest CDN URLs from the feed before the show.",
+  "HEFTDT-8404": "https://img.yitashop.com/upload/productpic/magnus-round-sintered-stone-dining-table-31-inch.jpg",
+  "HEFTST-2201": "",
+  "HEFTSB-3202": "",
+  "HEFTCT-4410": "",
+  "HEFTDC-5510": "",
+  "HEFTBS-6620": "",
+  "HEFTSF-7730": "",
+  "HEFTSD-8840": ""
+}
