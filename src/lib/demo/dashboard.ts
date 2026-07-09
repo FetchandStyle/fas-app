@@ -1,10 +1,10 @@
 /** Mock signed-in user for trade-show demo (no Firebase yet). */
 export const DEMO_USER = {
-  id: 'demo-heather',
-  displayName: 'Heather',
-  email: 'heather@fetchandstyle.com',
+  id: 'demo-user',
+  displayName: 'Alex',
+  email: 'alex@example.com',
   avatarUrl:
-    'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&h=120&q=80',
+    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=120&h=120&q=80',
   wishlistCount: 24,
   purchaseCount: 12,
   roomsScannedCount: 7,

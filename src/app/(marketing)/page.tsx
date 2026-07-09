@@ -31,7 +31,7 @@ export default function SignInLandingPage() {
           href="/dashboard"
           className="mt-8 inline-flex w-full items-center justify-center rounded-lg bg-pink-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-pink-700"
         >
-          Continue as demo user (Heather)
+          Continue as demo user
         </Link>
 
         <p className="mt-4 text-xs text-gray-400">
