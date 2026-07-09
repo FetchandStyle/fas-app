@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import SearchBar from '@/components/SearchBar';
 import ProductCard from '@/components/ui/ProductCard';
+import DashboardCard from '@/components/ui/DashboardCard';
 import type { Product } from '@/types';
 
 function ResultsContent() {
@@ -61,56 +62,60 @@ function ResultsContent() {
     runSearch();
   }, [query, hasImage]);
 
-  return (
-    <div className="mx-auto max-w-7xl px-6 py-10">
-      <div className="mb-8">
-        <SearchBar initialQuery={query} variant="compact" />
-      </div>
+  const title = hasImage
+    ? 'Image search results'
+    : query
+      ? `Results for “${query}”`
+      : 'All products';
 
-      <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+  return (
+    <div className="px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+      <DashboardCard className="mb-6">
+        <SearchBar initialQuery={query} variant="compact" />
+      </DashboardCard>
+
+      <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-serif text-3xl text-brand-blue-gray">
-            {hasImage ? 'Image search results' : query ? `Results for “${query}”` : 'All products'}
-          </h1>
+          <h1 className="text-xl font-bold text-[#111827] sm:text-2xl">{title}</h1>
           {!loading && (
-            <p className="mt-1 text-sm text-brand-muted">
+            <p className="mt-1 text-sm text-[#6B7280]">
               {results.length} product{results.length !== 1 ? 's' : ''} found
             </p>
           )}
         </div>
         <Link
           href="/score"
-          className="text-sm font-semibold text-brand-blue hover:underline"
+          className="text-sm font-semibold text-[#DB2777] hover:text-[#BE185D]"
         >
           View AI Commerce Score →
         </Link>
       </div>
 
       {loading && (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {Array.from({ length: 8 }).map((_, i) => (
             <div
               key={i}
-              className="aspect-[4/5] animate-pulse rounded-2xl bg-slate-200"
+              className="aspect-[4/5] animate-pulse rounded-xl border border-[#E5E7EB] bg-white"
             />
           ))}
         </div>
       )}
 
       {error && (
-        <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-700">
-          {error}
-        </div>
+        <DashboardCard>
+          <p className="text-sm text-red-600">{error}</p>
+        </DashboardCard>
       )}
 
       {!loading && !error && results.length === 0 && (
-        <div className="rounded-xl border border-slate-200 bg-white px-6 py-12 text-center text-brand-muted">
-          No products matched. Try “round dining table”.
-        </div>
+        <DashboardCard className="text-center">
+          <p className="text-[#6B7280]">No products matched. Try “round dining table”.</p>
+        </DashboardCard>
       )}
 
       {!loading && results.length > 0 && (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {results.map((product, index) => (
             <ProductCard
               key={product.sku}
@@ -132,9 +137,7 @@ export default function SearchResultsPage() {
   return (
     <Suspense
       fallback={
-        <div className="mx-auto max-w-7xl px-6 py-20 text-center text-brand-muted">
-          Loading results…
-        </div>
+        <div className="px-6 py-20 text-center text-[#6B7280]">Loading results…</div>
       }
     >
       <ResultsContent />

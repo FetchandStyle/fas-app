@@ -15,7 +15,7 @@ function DashboardCard({
 }) {
   return (
     <section
-      className={`rounded-xl border border-[#E5E7EB] bg-white p-5 shadow-sm sm:p-6 ${className}`}
+      className={`rounded-2xl border border-[#E5E7EB] bg-white p-5 shadow-sm sm:rounded-xl sm:p-6 ${className}`}
     >
       {children}
     </section>
@@ -30,11 +30,13 @@ function SectionHeader({
   href: string;
 }) {
   return (
-    <div className="mb-4 flex items-center justify-between">
-      <h2 className="text-[17px] font-bold text-[#111827]">{title}</h2>
+    <div className="mb-4 flex items-center justify-between gap-3">
+      <h2 className="font-serif text-lg font-bold text-[#111827] sm:text-[17px]">
+        {title}
+      </h2>
       <Link
         href={href}
-        className="text-sm font-semibold text-[#DB2777] hover:text-[#BE185D]"
+        className="shrink-0 text-sm font-semibold text-[#DB2777] hover:text-[#BE185D]"
       >
         View all
       </Link>
@@ -42,7 +44,7 @@ function SectionHeader({
   );
 }
 
-function StatCard({
+function StatRow({
   icon,
   value,
   label,
@@ -54,33 +56,53 @@ function StatCard({
   iconClassName?: string;
 }) {
   return (
-    <div className="flex min-w-0 flex-1 items-center gap-3 rounded-xl border border-[#E5E7EB] bg-white px-4 py-3.5">
-      <span className={`shrink-0 ${iconClassName}`}>{icon}</span>
+    <div className="flex w-full items-center gap-4 rounded-xl border border-[#E5E7EB] bg-white px-4 py-3.5 sm:gap-3 lg:flex-1">
+      <span className={`flex h-10 w-10 shrink-0 items-center justify-center sm:h-auto sm:w-auto ${iconClassName}`}>
+        {icon}
+      </span>
       <div className="min-w-0">
-        <p className="text-xl font-bold leading-tight text-[#111827]">{value}</p>
-        <p className="truncate text-xs text-[#6B7280]">{label}</p>
+        <p className="text-2xl font-bold leading-none text-[#111827] sm:text-xl">
+          {value}
+        </p>
+        <p className="mt-1 text-sm text-[#6B7280] sm:text-xs">{label}</p>
       </div>
+    </div>
+  );
+}
+
+function HorizontalScroll({
+  children,
+  className = '',
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`flex gap-3 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${className}`}
+    >
+      {children}
     </div>
   );
 }
 
 export default function DashboardPage() {
   return (
-    <div className="px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
-      {/* Top row: welcome + stats | scans */}
-      <div className="mb-6 grid gap-6 xl:grid-cols-2">
-        {/* Left — welcome + 3 stat cards */}
-        <DashboardCard className="flex flex-col justify-between">
-          <div className="mb-6 flex items-center gap-4">
+    <div className="px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
+      {/* Mobile: stacked cards. Desktop: welcome | scans side by side */}
+      <div className="mb-5 grid grid-cols-1 gap-5 lg:mb-6 lg:grid-cols-2 lg:gap-6">
+        {/* Profile summary */}
+        <DashboardCard>
+          <div className="mb-5 flex items-center gap-3 sm:mb-6 sm:gap-4">
             <Image
               src={DEMO_USER.avatarUrl}
               alt={DEMO_USER.displayName}
               width={56}
               height={56}
-              className="h-14 w-14 shrink-0 rounded-full object-cover"
+              className="h-12 w-12 shrink-0 rounded-full object-cover sm:h-14 sm:w-14"
             />
-            <div>
-              <h1 className="text-lg font-bold text-[#111827] sm:text-xl">
+            <div className="min-w-0">
+              <h1 className="text-base font-bold leading-snug text-[#111827] sm:text-xl">
                 Welcome back, {DEMO_USER.displayName} 👋
               </h1>
               <p className="mt-0.5 text-sm text-[#6B7280]">
@@ -89,33 +111,34 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <StatCard
+          {/* Mobile: stacked rows. Desktop: 3 columns */}
+          <div className="flex flex-col gap-3 lg:flex-row lg:gap-3">
+            <StatRow
               value={DEMO_USER.wishlistCount}
               label="Wishlist Items"
               iconClassName="text-[#DB2777]"
               icon={
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
                   <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z" />
                 </svg>
               }
             />
-            <StatCard
+            <StatRow
               value={DEMO_USER.purchaseCount}
               label="Previous Purchases"
               icon={
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
                   <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
                   <path d="M3 6h18" />
                   <path d="M16 10a4 4 0 01-8 0" />
                 </svg>
               }
             />
-            <StatCard
+            <StatRow
               value={DEMO_USER.roomsScannedCount}
               label="Rooms Scanned"
               icon={
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
                   <path d="M4 19V6a2 2 0 012-2h12a2 2 0 012 2v13" />
                   <path d="M4 19h16M8 11h8M8 15h5" />
                 </svg>
@@ -124,38 +147,39 @@ export default function DashboardPage() {
           </div>
         </DashboardCard>
 
-        {/* Right — scans of my home */}
-        <DashboardCard>
+        {/* Scans of my home */}
+        <DashboardCard className="min-w-0">
           <SectionHeader title="Scans of My Home" href="/scans" />
 
-          <div className="-mx-1 flex gap-3 overflow-x-auto pb-1">
+          {/* Bleed scroll to card edges on mobile */}
+          <HorizontalScroll className="-mx-1 sm:mx-0">
             {DEMO_ROOM_SCANS.map((scan) => (
               <Link
                 key={scan.id}
                 href="/room-builder"
-                className={`group w-[148px] shrink-0 overflow-hidden rounded-xl border bg-white transition ${
+                className={`w-[min(58vw,220px)] shrink-0 snap-start overflow-hidden rounded-xl border bg-white sm:w-[180px] lg:w-[148px] ${
                   scan.selected
                     ? 'border-[#DB2777]/40 ring-2 ring-[#DB2777]/20'
-                    : 'border-[#E5E7EB] hover:border-[#DB2777]/30'
+                    : 'border-[#E5E7EB]'
                 }`}
               >
-                <div className="relative h-[100px] bg-[#F3F4F6]">
+                <div className="relative h-[120px] bg-[#F3F4F6] sm:h-[100px]">
                   <Image
                     src={scan.imageUrl}
                     alt={scan.title}
                     fill
-                    className="object-cover"
-                    sizes="148px"
+                    className="rounded-t-xl object-cover"
+                    sizes="(max-width: 640px) 58vw, 180px"
                   />
                   {scan.selected && (
-                    <div className="absolute inset-0 bg-[#DB2777]/10" aria-hidden />
+                    <div className="absolute inset-0 rounded-t-xl bg-[#DB2777]/10" aria-hidden />
                   )}
                 </div>
-                <div className="px-2.5 py-2">
-                  <p className="truncate text-sm font-semibold text-[#111827]">
+                <div className="px-3 py-2.5">
+                  <p className="truncate text-sm font-bold text-[#111827]">
                     {scan.title}
                   </p>
-                  <p className="text-[11px] text-[#6B7280]">
+                  <p className="mt-0.5 text-xs text-[#6B7280]">
                     Scanned on {scan.scannedOn}
                   </p>
                 </div>
@@ -164,36 +188,36 @@ export default function DashboardPage() {
 
             <Link
               href="/scans"
-              className="flex w-[120px] shrink-0 flex-col items-center justify-center rounded-xl border border-[#E5E7EB] bg-white py-6 transition hover:border-[#DB2777]/40 hover:bg-[#FFF0F5]"
+              className="flex w-[min(42vw,160px)] shrink-0 snap-start flex-col items-center justify-center rounded-xl border border-[#E5E7EB] bg-white py-8 sm:w-[120px] sm:py-6"
             >
-              <span className="mb-2 flex h-9 w-9 items-center justify-center rounded-full border border-[#F9A8D4] text-xl font-light text-[#DB2777]">
+              <span className="mb-2 flex h-10 w-10 items-center justify-center rounded-full border border-[#F9A8D4] text-2xl font-light text-[#DB2777] sm:h-9 sm:w-9 sm:text-xl">
                 +
               </span>
               <span className="px-2 text-center text-xs font-semibold text-[#374151]">
                 Add New Scan
               </span>
             </Link>
-          </div>
+          </HorizontalScroll>
         </DashboardCard>
       </div>
 
-      {/* Bottom — wishlist */}
+      {/* Wishlist */}
       <DashboardCard>
         <SectionHeader title="Wishlist Items" href="/wishlist" />
 
-        <div className="-mx-1 flex gap-4 overflow-x-auto pb-1">
+        <HorizontalScroll className="-mx-1 sm:mx-0">
           {DEMO_WISHLIST.map((item) => (
             <article
               key={item.sku}
-              className="w-[160px] shrink-0 overflow-hidden rounded-xl border border-[#E5E7EB] bg-white sm:w-[180px]"
+              className="w-[min(52vw,200px)] shrink-0 snap-start overflow-hidden rounded-xl border border-[#E5E7EB] bg-white sm:w-[180px]"
             >
-              <div className="relative aspect-square bg-[#F9FAFB] p-3">
+              <div className="relative aspect-square bg-[#F9FAFB]">
                 <Image
                   src={item.imageUrl}
                   alt={item.name}
                   fill
                   className="object-contain p-4"
-                  sizes="180px"
+                  sizes="(max-width: 640px) 52vw, 180px"
                 />
                 <button
                   type="button"
@@ -215,7 +239,7 @@ export default function DashboardPage() {
               </div>
             </article>
           ))}
-        </div>
+        </HorizontalScroll>
       </DashboardCard>
     </div>
   );

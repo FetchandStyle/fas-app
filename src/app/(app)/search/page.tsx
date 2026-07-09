@@ -1,4 +1,5 @@
 import SearchBar from '@/components/SearchBar';
+import DashboardCard from '@/components/ui/DashboardCard';
 
 const SUGGESTIONS = [
   'round dining table',
@@ -9,32 +10,34 @@ const SUGGESTIONS = [
 
 export default function SearchPage() {
   return (
-    <div className="mx-auto max-w-4xl px-6 py-16">
-      <div className="mb-10 text-center">
-        <h1 className="mb-3 font-serif text-4xl text-brand-blue-gray">
-          Search the demo catalog
-        </h1>
-        <p className="text-brand-muted">
-          Text or image search — offline-safe demo with Hernest products.
-        </p>
-      </div>
-
-      <SearchBar variant="hero" />
-
-      <div className="mt-8">
-        <p className="mb-3 text-sm font-medium text-brand-muted">Try a query:</p>
-        <div className="flex flex-wrap gap-2">
-          {SUGGESTIONS.map((q) => (
-            <a
-              key={q}
-              href={`/search/results?q=${encodeURIComponent(q)}`}
-              className="rounded-full border border-slate-200 bg-white px-4 py-1.5 text-sm text-brand-blue transition hover:border-brand-blue hover:bg-brand-blue/5"
-            >
-              {q}
-            </a>
-          ))}
+    <div className="px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+      <DashboardCard className="mx-auto max-w-3xl">
+        <div className="mb-8 text-center">
+          <h1 className="text-2xl font-bold text-[#111827] sm:text-3xl">
+            Search the demo catalog
+          </h1>
+          <p className="mt-2 text-sm text-[#6B7280]">
+            Text or image search — works offline with local Hernest products.
+          </p>
         </div>
-      </div>
+
+        <SearchBar variant="hero" />
+
+        <div className="mt-8">
+          <p className="mb-3 text-sm font-semibold text-[#374151]">Try a query:</p>
+          <div className="flex flex-wrap justify-center gap-2">
+            {SUGGESTIONS.map((q) => (
+              <a
+                key={q}
+                href={`/search/results?q=${encodeURIComponent(q)}`}
+                className="rounded-full border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-1.5 text-sm font-medium text-[#658EC2] transition hover:border-[#658EC2] hover:bg-white"
+              >
+                {q}
+              </a>
+            ))}
+          </div>
+        </div>
+      </DashboardCard>
     </div>
   );
 }

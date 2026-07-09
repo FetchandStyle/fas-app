@@ -2,6 +2,20 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import {
+  FAS_CONTACT_URL,
+  FAS_FAQ_URL,
+  FAS_HOW_IT_WORKS_URL,
+  FAS_PRICING_URL,
+} from '@/lib/brand';
+
+const MOBILE_MARKETING_LINKS = [
+  { href: FAS_HOW_IT_WORKS_URL, label: 'How it Works' },
+  { href: FAS_PRICING_URL, label: 'Pricing' },
+  { href: '/score', label: 'AI Readiness Score' },
+  { href: FAS_FAQ_URL, label: 'FAQ' },
+  { href: FAS_CONTACT_URL, label: 'Contact Us' },
+];
 
 type SidebarItem = {
   href: string;
@@ -173,10 +187,19 @@ const SECONDARY_ITEMS: SidebarItem[] = [
   },
 ];
 
-function SidebarLink({ item, active }: { item: SidebarItem; active: boolean }) {
+function SidebarLink({
+  item,
+  active,
+  onNavigate,
+}: {
+  item: SidebarItem;
+  active: boolean;
+  onNavigate?: () => void;
+}) {
   return (
     <Link
       href={item.href}
+      onClick={onNavigate}
       className={`flex items-center gap-3 rounded-lg px-4 py-3 text-[15px] leading-none transition-colors ${
         active
           ? 'bg-[#FFF0F5] font-semibold text-[#C2185B]'
@@ -193,7 +216,108 @@ function SidebarDivider() {
   return <div className="my-3 border-t border-[#E5E7EB]" />;
 }
 
-export default function AccountSidebar() {
+function SidebarNav({
+  isActive,
+  onNavigate,
+  hideTitle = false,
+  showMarketingLinks = false,
+}: {
+  isActive: (href: string) => boolean;
+  onNavigate?: () => void;
+  hideTitle?: boolean;
+  showMarketingLinks?: boolean;
+}) {
+  return (
+    <>
+      {!hideTitle && (
+        <h2 className="mb-6 px-1 text-[17px] font-bold tracking-tight text-[#111827]">
+          My Account
+        </h2>
+      )}
+
+      <nav className="flex flex-1 flex-col gap-0.5">
+        {PRIMARY_ITEMS.map((item) => (
+          <SidebarLink
+            key={item.href}
+            item={item}
+            active={isActive(item.href)}
+            onNavigate={onNavigate}
+          />
+        ))}
+
+        <SidebarDivider />
+
+        {SECONDARY_ITEMS.map((item) => (
+          <SidebarLink
+            key={item.href}
+            item={item}
+            active={isActive(item.href)}
+            onNavigate={onNavigate}
+          />
+        ))}
+      </nav>
+
+      {showMarketingLinks && (
+        <>
+          <SidebarDivider />
+          <p className="mb-1 px-4 text-xs font-semibold uppercase tracking-wide text-[#9CA3AF]">
+            Company
+          </p>
+          {MOBILE_MARKETING_LINKS.map(({ href, label }) =>
+            href.startsWith('/') ? (
+              <Link
+                key={href}
+                href={href}
+                onClick={onNavigate}
+                className="block rounded-lg px-4 py-2.5 text-[14px] font-medium text-[#374151] hover:bg-gray-50"
+              >
+                {label}
+              </Link>
+            ) : (
+              <a
+                key={href}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={onNavigate}
+                className="block rounded-lg px-4 py-2.5 text-[14px] font-medium text-[#374151] hover:bg-gray-50"
+              >
+                {label}
+              </a>
+            ),
+          )}
+        </>
+      )}
+
+      <SidebarDivider />
+
+      <Link
+        href="/"
+        onClick={onNavigate}
+        className="flex items-center gap-3 rounded-lg px-4 py-3 text-[15px] font-medium text-[#374151] transition-colors hover:bg-gray-50"
+      >
+        <Icon>
+          <svg width={ICON_SIZE} height={ICON_SIZE} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={STROKE}>
+            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h2" />
+            <path d="M16 17l5-5-5-5" />
+            <path d="M21 12H9" />
+          </svg>
+        </Icon>
+        Sign Out
+      </Link>
+    </>
+  );
+}
+
+interface AccountSidebarProps {
+  mobileOpen?: boolean;
+  onMobileClose?: () => void;
+}
+
+export default function AccountSidebar({
+  mobileOpen = false,
+  onMobileClose,
+}: AccountSidebarProps) {
   const pathname = usePathname();
 
   function isActive(href: string) {
@@ -202,40 +326,48 @@ export default function AccountSidebar() {
   }
 
   return (
-    <aside className="account-sidebar hidden w-[260px] shrink-0 border-r border-[#E5E7EB] bg-white lg:block">
-      <div className="sticky top-[72px] flex h-[calc(100vh-72px)] flex-col px-5 py-8">
-        <h2 className="mb-6 px-1 text-[17px] font-bold tracking-tight text-[#111827]">
-          My Account
-        </h2>
+    <>
+      {/* Desktop sidebar */}
+      <aside className="account-sidebar hidden w-[260px] shrink-0 border-r border-[#E5E7EB] bg-white lg:block">
+        <div className="sticky top-[72px] flex h-[calc(100vh-72px)] flex-col px-5 py-8">
+          <SidebarNav isActive={isActive} />
+        </div>
+      </aside>
 
-        <nav className="flex flex-1 flex-col gap-0.5">
-          {PRIMARY_ITEMS.map((item) => (
-            <SidebarLink key={item.href} item={item} active={isActive(item.href)} />
-          ))}
-
-          <SidebarDivider />
-
-          {SECONDARY_ITEMS.map((item) => (
-            <SidebarLink key={item.href} item={item} active={isActive(item.href)} />
-          ))}
-        </nav>
-
-        <SidebarDivider />
-
-        <Link
-          href="/"
-          className="flex items-center gap-3 rounded-lg px-4 py-3 text-[15px] font-medium text-[#374151] transition-colors hover:bg-gray-50"
-        >
-          <Icon>
-            <svg width={ICON_SIZE} height={ICON_SIZE} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={STROKE}>
-              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h2" />
-              <path d="M16 17l5-5-5-5" />
-              <path d="M21 12H9" />
-            </svg>
-          </Icon>
-          Sign Out
-        </Link>
-      </div>
-    </aside>
+      {/* Mobile drawer */}
+      {mobileOpen && (
+        <>
+          <button
+            type="button"
+            className="fixed inset-0 z-40 bg-black/40 lg:hidden"
+            aria-label="Close account menu"
+            onClick={onMobileClose}
+          />
+          <aside className="account-sidebar fixed inset-y-0 left-0 z-50 flex w-[min(300px,85vw)] flex-col bg-white shadow-xl lg:hidden">
+            <div className="flex items-center justify-between border-b border-[#E5E7EB] px-5 py-4">
+              <span className="text-[17px] font-bold text-[#111827]">My Account</span>
+              <button
+                type="button"
+                onClick={onMobileClose}
+                className="rounded-lg p-2 text-gray-500 hover:bg-gray-100"
+                aria-label="Close menu"
+              >
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M6 6l12 12M6 18L18 6" />
+                </svg>
+              </button>
+            </div>
+            <div className="flex flex-1 flex-col overflow-y-auto px-5 py-6">
+              <SidebarNav
+                isActive={isActive}
+                onNavigate={onMobileClose}
+                hideTitle
+                showMarketingLinks
+              />
+            </div>
+          </aside>
+        </>
+      )}
+    </>
   );
 }
