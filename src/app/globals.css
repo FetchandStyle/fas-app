@@ -72,3 +72,151 @@ h3 {
 .kyc-scan-line {
   animation: kyc-scan 2s ease-in-out infinite;
 }
+
+/* Room builder — CSS isometric 3D scene (no WebGL, runs in any browser) */
+.room-iso-scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  perspective: 900px;
+  perspective-origin: 50% 40%;
+}
+
+.room-iso-stage {
+  position: relative;
+  width: min(420px, 70vw);
+  height: min(420px, 70vw);
+  transform-style: preserve-3d;
+  transform: rotateX(58deg) rotateZ(-45deg);
+}
+
+.room-iso-floor {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #c4a574 0%, #a08050 40%, #8b6914 100%);
+  border: 2px solid #7a5c12;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.15);
+  transform: translateZ(0);
+  cursor: default;
+}
+
+.room-iso-wall-back {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 55%;
+  background: linear-gradient(180deg, #fafaf8 0%, #f0f0ec 100%);
+  border: 1px solid #e0e0dc;
+  transform: rotateX(-90deg) translateZ(0);
+  transform-origin: top center;
+}
+
+.room-iso-wall-side {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(90deg, #f5f5f2 0%, #ebebe8 100%);
+  border: 1px solid #e0e0dc;
+  transform: rotateY(90deg) translateZ(0);
+  transform-origin: right center;
+}
+
+.room-iso-window {
+  position: absolute;
+  left: 50%;
+  top: 18%;
+  width: 42%;
+  height: 28%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #b8d4e8 0%, #8bb8d4 100%);
+  border: 3px solid #d8d8d4;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.room-iso-tv {
+  position: absolute;
+  left: 12%;
+  bottom: 22%;
+  width: 22%;
+  height: 14%;
+  background: #1a1a1a;
+  border: 2px solid #333;
+  border-radius: 2px;
+}
+
+.room-iso-frame {
+  position: absolute;
+  width: 10%;
+  height: 12%;
+  background: #e8e4dc;
+  border: 2px solid #ccc8c0;
+}
+
+.room-iso-frame-left {
+  left: 38%;
+  bottom: 28%;
+}
+
+.room-iso-frame-right {
+  right: 28%;
+  bottom: 32%;
+}
+
+.room-iso-item {
+  position: absolute;
+  z-index: 10;
+  touch-action: none;
+  cursor: grab;
+}
+
+.room-iso-item.is-dragging {
+  cursor: grabbing;
+  z-index: 30;
+}
+
+.room-iso-item-inner {
+  position: relative;
+  width: clamp(56px, 12vw, 88px);
+  height: clamp(56px, 12vw, 88px);
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.room-iso-item-inner.is-selected {
+  outline: 2px solid #db2777;
+  outline-offset: 2px;
+}
+
+.room-iso-selected-badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: #db2777;
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(219, 39, 119, 0.4);
+}
+
+.room-iso-shadow {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  width: 70%;
+  height: 8px;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  filter: blur(3px);
+}

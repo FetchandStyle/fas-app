@@ -312,11 +312,17 @@ function SidebarNav({
 interface AccountSidebarProps {
   mobileOpen?: boolean;
   onMobileClose?: () => void;
+  desktopCollapsed?: boolean;
+  onDesktopToggle?: () => void;
+  showDesktopToggle?: boolean;
 }
 
 export default function AccountSidebar({
   mobileOpen = false,
   onMobileClose,
+  desktopCollapsed = false,
+  onDesktopToggle,
+  showDesktopToggle = false,
 }: AccountSidebarProps) {
   const pathname = usePathname();
 
@@ -327,12 +333,39 @@ export default function AccountSidebar({
 
   return (
     <>
-      {/* Desktop sidebar */}
-      <aside className="account-sidebar hidden w-[260px] shrink-0 border-r border-[#E5E7EB] bg-white lg:block">
-        <div className="sticky top-[72px] flex h-[calc(100vh-72px)] flex-col px-5 py-8">
+      {/* Desktop sidebar — slide collapse on room builder */}
+      <aside
+        className={`account-sidebar hidden shrink-0 overflow-hidden border-r border-[#E5E7EB] bg-white transition-[width] duration-300 ease-in-out lg:block ${
+          desktopCollapsed ? 'w-0 border-r-0' : 'w-[260px]'
+        }`}
+      >
+        <div className="flex h-[calc(100vh-72px)] w-[260px] flex-col px-5 py-8">
           <SidebarNav isActive={isActive} />
         </div>
       </aside>
+
+      {showDesktopToggle && onDesktopToggle && (
+        <button
+          type="button"
+          onClick={onDesktopToggle}
+          className={`absolute top-1/2 z-30 hidden -translate-y-1/2 items-center rounded-r-lg border border-l-0 border-[#E5E7EB] bg-white px-1.5 py-4 text-[#6B7280] shadow-md transition-all duration-300 hover:bg-[#F9FAFB] hover:text-[#DB2777] lg:flex ${
+            desktopCollapsed ? 'left-0' : 'left-[260px]'
+          }`}
+          aria-label={desktopCollapsed ? 'Show account menu' : 'Hide account menu'}
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            className={`transition-transform ${desktopCollapsed ? '' : 'rotate-180'}`}
+          >
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+      )}
 
       {/* Mobile drawer */}
       {mobileOpen && (

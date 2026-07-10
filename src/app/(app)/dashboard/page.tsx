@@ -156,7 +156,7 @@ export default function DashboardPage() {
             {DEMO_ROOM_SCANS.map((scan) => (
               <Link
                 key={scan.id}
-                href="/room-builder"
+                href={`/room-builder?scan=${scan.id}`}
                 className={`w-[min(58vw,220px)] shrink-0 snap-start overflow-hidden rounded-xl border bg-white sm:w-[180px] lg:w-[148px] ${
                   scan.selected
                     ? 'border-[#DB2777]/40 ring-2 ring-[#DB2777]/20'
