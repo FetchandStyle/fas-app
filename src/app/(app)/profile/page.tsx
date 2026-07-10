@@ -1,5 +1,5 @@
-import PlaceholderPage from '@/components/app/PlaceholderPage';
+import ProfilePageClient from '@/components/profile/ProfilePageClient';
 
 export default function ProfilePage() {
-  return <PlaceholderPage title="My Profile & KYC" />;
+  return <ProfilePageClient />;
 }
