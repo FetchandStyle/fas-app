@@ -10,12 +10,14 @@ interface RoomCatalogPanelProps {
   placedItems: PlacedItem[];
   onAdd: (sku: string) => void;
   onSelectPlaced: (id: string) => void;
+  onRemove: (id: string) => void;
 }
 
 export default function RoomCatalogPanel({
   placedItems,
   onAdd,
   onSelectPlaced,
+  onRemove,
 }: RoomCatalogPanelProps) {
   const [tab, setTab] = useState<'catalog' | 'my-items'>('catalog');
   const [query, setQuery] = useState('');
@@ -149,19 +151,33 @@ export default function RoomCatalogPanel({
             ) : (
               <ul className="space-y-2">
                 {myItems.map(({ item, product }) => (
-                  <li key={item.id}>
+                  <li
+                    key={item.id}
+                    className="flex items-center gap-1 rounded-xl border border-[#E5E7EB] p-2 hover:bg-[#F9FAFB]"
+                  >
                     <button
                       type="button"
                       onClick={() => onSelectPlaced(item.id)}
-                      className="flex w-full items-center gap-2 rounded-xl border border-[#E5E7EB] p-2 text-left hover:bg-[#F9FAFB]"
+                      className="flex min-w-0 flex-1 items-center gap-2 text-left"
                     >
-                      <div className="h-12 w-12 shrink-0 rounded-lg bg-[#F9FAFB] p-1">
+                      <div className="relative h-12 w-12 shrink-0 rounded-lg bg-[#F9FAFB] p-1">
                         <ProductImage src={product!.image_url} alt={product!.name} objectFit="contain" />
                       </div>
                       <div className="min-w-0">
                         <p className="truncate text-xs font-semibold text-[#111827]">{product!.name}</p>
                         <p className="text-xs text-[#6B7280]">${product!.price.toLocaleString()}</p>
                       </div>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => onRemove(item.id)}
+                      className="shrink-0 rounded-lg p-2 text-[#9CA3AF] transition hover:bg-red-50 hover:text-red-600"
+                      title="Remove from room"
+                      aria-label={`Remove ${product!.name} from room`}
+                    >
+                      <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                      </svg>
                     </button>
                   </li>
                 ))}

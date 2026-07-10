@@ -90,11 +90,13 @@ export default function RoomViewport({
                 onPointerDown={(e) => handlePointerDown(e, item)}
               >
                 <div
-                  className={`flex h-14 w-14 items-center justify-center rounded-lg border-2 bg-white p-1 shadow-md sm:h-16 sm:w-16 ${
+                  className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border-2 bg-white p-1 shadow-md sm:h-16 sm:w-16 ${
                     selected ? 'border-[#DB2777]' : 'border-[#E5E7EB]'
                   }`}
                 >
-                  <ProductImage src={product.image_url} alt={product.name} objectFit="contain" />
+                  <div className="relative h-full w-full">
+                    <ProductImage src={product.image_url} alt={product.name} objectFit="contain" />
+                  </div>
                 </div>
               </div>
             );

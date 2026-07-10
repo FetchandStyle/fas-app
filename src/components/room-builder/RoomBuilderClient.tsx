@@ -82,6 +82,14 @@ export default function RoomBuilderClient() {
     setTool('decorate');
   };
 
+  const handleRemove = (id: string) => {
+    updateScene((prev) => ({
+      ...prev,
+      placedItems: prev.placedItems.filter((item) => item.id !== id),
+    }));
+    setSelectedId((current) => (current === id ? null : current));
+  };
+
   const handleUndo = () => {
     if (history.length === 0) return;
     const prev = history[history.length - 1];
@@ -246,6 +254,7 @@ export default function RoomBuilderClient() {
           placedItems={scene.placedItems}
           onAdd={handleAdd}
           onSelectPlaced={setSelectedId}
+          onRemove={handleRemove}
         />
       </div>
 

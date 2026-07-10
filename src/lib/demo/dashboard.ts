@@ -81,3 +81,124 @@ export const DEMO_WISHLIST: WishlistItem[] = [
       'https://images.unsplash.com/photo-1513505193045-4fc17ac0a254?auto=format&fit=crop&w=400&h=400&q=80',
   },
 ];
+
+export interface PurchaseLineItem {
+  sku: string;
+  name: string;
+  price: number;
+  quantity: number;
+  imageUrl: string;
+}
+
+export interface PurchaseOrder {
+  id: string;
+  orderDate: string;
+  status: 'Delivered' | 'Shipped' | 'Processing';
+  items: PurchaseLineItem[];
+  total: number;
+}
+
+export const DEMO_PURCHASES: PurchaseOrder[] = [
+  {
+    id: 'ORD-1042',
+    orderDate: 'March 8, 2024',
+    status: 'Delivered',
+    total: 818,
+    items: [
+      {
+        sku: 'HEFTDT-8404',
+        name: 'Magnus 31" Round Sintered Stone Dining Table',
+        price: 559,
+        quantity: 1,
+        imageUrl: '/demo/products/HEFTDT-8404.jpg',
+      },
+      {
+        sku: 'HEFTDC-5510',
+        name: 'Ari Upholstered Dining Chair (Set of 2)',
+        price: 259,
+        quantity: 1,
+        imageUrl: '/demo/products/HEFTDC-5510.jpg',
+      },
+    ],
+  },
+  {
+    id: 'ORD-0987',
+    orderDate: 'January 22, 2024',
+    status: 'Delivered',
+    total: 1048,
+    items: [
+      {
+        sku: 'HEFTSB-3202',
+        name: 'Lund 3-Seater Convertible Sofa Bed',
+        price: 899,
+        quantity: 1,
+        imageUrl: '/demo/products/HEFTSB-3202.jpg',
+      },
+      {
+        sku: 'HEFTST-2201',
+        name: 'Oslo Round Side Table with Storage Shelf',
+        price: 149,
+        quantity: 1,
+        imageUrl: '/demo/products/HEFTST-2201.jpg',
+      },
+    ],
+  },
+  {
+    id: 'ORD-0911',
+    orderDate: 'November 5, 2023',
+    status: 'Delivered',
+    total: 1178,
+    items: [
+      {
+        sku: 'HEFTCT-4410',
+        name: 'Bergen Oval Sintered Stone Coffee Table',
+        price: 429,
+        quantity: 1,
+        imageUrl: '/demo/products/HEFTCT-4410.jpg',
+      },
+      {
+        sku: 'HEFTSF-7730',
+        name: 'Faro 2-Seater Boucle Accent Sofa',
+        price: 749,
+        quantity: 1,
+        imageUrl: '/demo/products/HEFTSF-7730.jpg',
+      },
+    ],
+  },
+];
+
+export interface CartLineItem {
+  sku: string;
+  name: string;
+  price: number;
+  quantity: number;
+  imageUrl: string;
+  source: string;
+}
+
+export const DEMO_CART: CartLineItem[] = [
+  {
+    sku: 'HEFTDT-8404',
+    name: 'Magnus 31" Round Sintered Stone Dining Table',
+    price: 559,
+    quantity: 1,
+    imageUrl: '/demo/products/HEFTDT-8404.jpg',
+    source: 'hernest',
+  },
+  {
+    sku: 'HEFTCT-4410',
+    name: 'Bergen Oval Sintered Stone Coffee Table',
+    price: 429,
+    quantity: 1,
+    imageUrl: '/demo/products/HEFTCT-4410.jpg',
+    source: 'hernest',
+  },
+  {
+    sku: 'HEFTDC-5510',
+    name: 'Ari Upholstered Dining Chair (Set of 2)',
+    price: 259,
+    quantity: 2,
+    imageUrl: '/demo/products/HEFTDC-5510.jpg',
+    source: 'hernest',
+  },
+];
