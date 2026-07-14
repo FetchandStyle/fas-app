@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import ProductImage from '@/components/ui/ProductImage';
 import {
   DEMO_ROOM_SCANS,
   DEMO_USER,
@@ -212,11 +213,11 @@ export default function DashboardPage() {
               className="w-[min(52vw,200px)] shrink-0 snap-start overflow-hidden rounded-xl border border-[#E5E7EB] bg-white sm:w-[180px]"
             >
               <div className="relative aspect-square bg-[#F9FAFB]">
-                <Image
+                <ProductImage
                   src={item.imageUrl}
                   alt={item.name}
-                  fill
-                  className="object-contain p-4"
+                  objectFit="contain"
+                  className="p-4"
                   sizes="(max-width: 640px) 52vw, 180px"
                 />
                 <button

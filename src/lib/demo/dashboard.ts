@@ -75,10 +75,9 @@ export const DEMO_WISHLIST: WishlistItem[] = [
   },
   {
     sku: 'WL-004',
-    name: 'Pendant Light',
-    price: 189,
-    imageUrl:
-      'https://images.unsplash.com/photo-1513505193045-4fc17ac0a254?auto=format&fit=crop&w=400&h=400&q=80',
+    name: 'Nord 3-Tier Bookshelf',
+    price: 199,
+    imageUrl: '/demo/products/HEFTBS-6620.jpg',
   },
 ];
 

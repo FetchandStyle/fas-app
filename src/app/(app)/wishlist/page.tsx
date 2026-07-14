@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import Link from 'next/link';
+import ProductImage from '@/components/ui/ProductImage';
 import { DEMO_USER, DEMO_WISHLIST } from '@/lib/demo/dashboard';
 
 export default function WishlistPage() {
@@ -30,7 +30,7 @@ export default function WishlistPage() {
               className="group overflow-hidden rounded-2xl border border-[#E5E7EB] bg-white shadow-sm transition hover:border-[#DB2777]/30 hover:shadow-md"
             >
               <div className="relative aspect-square bg-[#F9FAFB]">
-                <Image src={item.imageUrl} alt={item.name} fill className="object-cover" sizes="25vw" />
+                <ProductImage src={item.imageUrl} alt={item.name} objectFit="cover" sizes="25vw" />
                 <span className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-[#DB2777] shadow-sm">
                   ♥
                 </span>
