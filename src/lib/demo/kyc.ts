@@ -63,3 +63,7 @@ export function kycSearchQuery(data: KycData): string {
   if (data.styles.length > 0) return `${data.styles.join(' ')} furniture`;
   return 'dining table';
 }
+
+export function kycSearchResultsPath(data: KycData): string {
+  return `/search/results?q=${encodeURIComponent(kycSearchQuery(data))}`;
+}

@@ -1,11 +1,9 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import {
   INITIAL_KYC_DATA,
   type KycData,
-  kycSearchQuery,
   loadKycData,
   saveKycData,
 } from '@/lib/demo/kyc';
@@ -40,7 +38,6 @@ interface OnboardingFlowProps {
 }
 
 export function OnboardingFlow({ initialData, onCancel, onComplete }: OnboardingFlowProps) {
-  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
   const [data, setData] = useState<KycData>(initialData ?? INITIAL_KYC_DATA);
   const [saving, setSaving] = useState(false);
@@ -74,9 +71,6 @@ export function OnboardingFlow({ initialData, onCancel, onComplete }: Onboarding
     saveKycData(completed);
     setSaving(false);
     onComplete?.(completed);
-
-    const query = kycSearchQuery(completed);
-    router.push(`/search/results?query=${encodeURIComponent(query)}`);
   };
 
   const handleBack = () => {
@@ -121,7 +115,7 @@ export function OnboardingFlow({ initialData, onCancel, onComplete }: Onboarding
             My Profile &amp; KYC
           </h1>
           <p className="mt-1 text-sm text-[#6B7280]">
-            Tell us about your style so we can personalize recommendations.
+            Tell us about your style, room, and budget — we&apos;ll save your design profile.
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-2 rounded-full border border-[#E5E7EB] bg-white px-4 py-2 text-sm shadow-sm">

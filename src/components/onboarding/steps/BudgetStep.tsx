@@ -109,7 +109,7 @@ export function BudgetStep({ data, onUpdate, onNext, onBack, saving }: BudgetSte
           className="flex-[2]"
           disabled={data.budget.min <= 0 || data.budget.max <= data.budget.min || saving}
         >
-          {saving ? 'Saving…' : 'See Recommendations →'}
+          {saving ? 'Saving…' : 'Save & continue →'}
         </PrimaryButton>
       </div>
     </div>

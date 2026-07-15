@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { DEMO_USER } from '@/lib/demo/dashboard';
-import { type KycData, kycSearchQuery } from '@/lib/demo/kyc';
+import { type KycData, kycSearchResultsPath } from '@/lib/demo/kyc';
 
 interface ProfileSummaryProps {
   data: KycData;
@@ -58,10 +58,16 @@ export function ProfileSummary({ data, onEdit }: ProfileSummaryProps) {
               Update preferences
             </PrimaryButton>
             <Link
-              href={`/search/results?query=${encodeURIComponent(kycSearchQuery(data))}`}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#658EC2] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#4a6fa3] sm:w-auto"
+              href="/dashboard"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#DB2777] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#BE185D] sm:w-auto"
             >
-              View recommendations →
+              Go to dashboard →
+            </Link>
+            <Link
+              href={kycSearchResultsPath(data)}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[#E5E7EB] bg-white px-5 py-2.5 text-sm font-semibold text-[#658EC2] transition-colors hover:bg-[#F9FAFB] sm:w-auto"
+            >
+              Search your style →
             </Link>
           </div>
         </div>

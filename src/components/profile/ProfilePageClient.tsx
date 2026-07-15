@@ -52,8 +52,8 @@ export default function ProfilePageClient() {
           />
           <h1 className="font-serif text-2xl font-bold text-[#111827]">Complete your KYC profile</h1>
           <p className="mt-3 text-sm leading-relaxed text-[#6B7280]">
-            Answer a few quick questions about your style, room, and budget so we can personalize
-            product recommendations for you.
+            Answer a few quick questions about your style, room, and budget. Your profile is saved
+            here — search and room builder use it when you&apos;re ready.
           </p>
           <p className="mt-2 text-xs text-[#9CA3AF]">Takes about 3 minutes · saved locally for demo</p>
           <PrimaryButton className="mt-8" fullWidth onClick={() => setMode('quiz')}>
