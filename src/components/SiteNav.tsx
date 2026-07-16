@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import AppImage from '@/components/ui/AppImage';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
@@ -46,7 +46,7 @@ export default function SiteNav({ showNewSearchLink }: SiteNavProps) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Image
+            <AppImage
               src="/faslogo.png"
               alt="Fetch & Style — home"
               width={140}

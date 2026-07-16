@@ -1,0 +1,18 @@
+{
+  "_comment": "CC0/CC-BY sample GLBs from Khronos glTF-Sample-Assets. Run: npm run download-demo-models",
+  "sources": {
+    "chair.glb": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenChair/glTF-Binary/SheenChair.glb",
+    "sofa.glb": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenWoodLeatherSofa/glTF-Binary/SheenWoodLeatherSofa.glb",
+    "table.glb": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SpecularSilkPouf/glTF-Binary/SpecularSilkPouf.glb"
+  },
+  "skuMap": {
+    "HEFTSB-3202": "sofa",
+    "HEFTSF-7730": "sofa",
+    "HEFTDC-5510": "chair",
+    "HEFTST-2201": "chair",
+    "HEFTCT-4410": "table",
+    "HEFTDT-8404": "table",
+    "HEFTBS-6620": "table",
+    "HEFTSD-8840": "table"
+  }
+}

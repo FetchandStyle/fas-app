@@ -18,6 +18,8 @@ export default function SignInLandingPage() {
           height={64}
           className="h-14 w-auto"
           priority
+          placeholder="empty"
+          style={{ color: 'transparent', filter: 'blur(0px)' }}
         />
       </a>
 

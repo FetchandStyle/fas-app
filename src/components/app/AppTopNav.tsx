@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import AppImage from '@/components/ui/AppImage';
 import Link from 'next/link';
 import { useState } from 'react';
 import {
@@ -49,7 +49,7 @@ export default function AppTopNav({
             href="/dashboard"
             className={`shrink-0 ${showMenuButton ? 'hidden lg:block' : 'block'}`}
           >
-            <Image
+            <AppImage
               src="/faslogo.png"
               alt="Fetch & Style"
               width={140}
@@ -64,7 +64,7 @@ export default function AppTopNav({
         {showMenuButton && (
           <div className="flex min-w-0 flex-1 justify-center lg:hidden">
             <Link href="/dashboard" className="shrink-0">
-              <Image
+              <AppImage
                 src="/faslogo.png"
                 alt="Fetch & Style"
                 width={120}
@@ -162,7 +162,7 @@ export default function AppTopNav({
             className="rounded-full p-0.5 hover:bg-gray-50 lg:hidden"
             aria-label="My profile"
           >
-            <Image
+            <AppImage
               src={DEMO_USER.avatarUrl}
               alt={DEMO_USER.displayName}
               width={32}
@@ -178,7 +178,7 @@ export default function AppTopNav({
               className="flex items-center gap-2 rounded-full py-1 pl-1 pr-2 hover:bg-gray-50"
               aria-expanded={profileOpen}
             >
-              <Image
+              <AppImage
                 src={DEMO_USER.avatarUrl}
                 alt={DEMO_USER.displayName}
                 width={36}

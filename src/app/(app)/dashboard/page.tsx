@@ -100,6 +100,8 @@ export default function DashboardPage() {
               alt={DEMO_USER.displayName}
               width={56}
               height={56}
+              placeholder="empty"
+              style={{ color: 'transparent', filter: 'blur(0px)' }}
               className="h-12 w-12 shrink-0 rounded-full object-cover sm:h-14 sm:w-14"
             />
             <div className="min-w-0">
@@ -169,6 +171,8 @@ export default function DashboardPage() {
                     src={scan.imageUrl}
                     alt={scan.title}
                     fill
+                    placeholder="empty"
+                    style={{ color: 'transparent', filter: 'blur(0px)' }}
                     className="rounded-t-xl object-cover"
                     sizes="(max-width: 640px) 58vw, 180px"
                   />

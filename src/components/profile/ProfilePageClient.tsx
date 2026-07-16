@@ -11,7 +11,7 @@ import {
   isKycComplete,
   loadKycData,
 } from '@/lib/demo/kyc';
-import Image from 'next/image';
+import AppImage from '@/components/ui/AppImage';
 
 type ViewMode = 'loading' | 'intro' | 'quiz' | 'summary';
 
@@ -43,7 +43,7 @@ export default function ProfilePageClient() {
     return (
       <div className="p-4 sm:p-6 lg:p-8">
         <div className="mx-auto max-w-lg rounded-2xl border border-[#E5E7EB] bg-white p-8 text-center shadow-sm">
-          <Image
+          <AppImage
             src={DEMO_USER.avatarUrl}
             alt={DEMO_USER.displayName}
             width={80}

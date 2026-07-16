@@ -115,7 +115,12 @@ export default function RoomCatalogPanel({
                     className="group overflow-hidden rounded-xl border border-[#E5E7EB] bg-white text-left transition-shadow hover:shadow-md"
                   >
                     <div className="relative aspect-square bg-[#F9FAFB] p-2">
-                      <ProductImage src={product.image_url} alt={product.name} objectFit="contain" />
+                      <ProductImage
+                        src={product.image_url}
+                        alt={product.name}
+                        objectFit="contain"
+                        sizes="120px"
+                      />
                       <span className="absolute right-1.5 top-1.5 rounded bg-white/90 px-1.5 py-0.5 text-[10px] font-semibold text-[#6B7280] shadow-sm">
                         ···
                       </span>
@@ -161,7 +166,12 @@ export default function RoomCatalogPanel({
                       className="flex min-w-0 flex-1 items-center gap-2 text-left"
                     >
                       <div className="relative h-12 w-12 shrink-0 rounded-lg bg-[#F9FAFB] p-1">
-                        <ProductImage src={product!.image_url} alt={product!.name} objectFit="contain" />
+                        <ProductImage
+                          src={product!.image_url}
+                          alt={product!.name}
+                          objectFit="contain"
+                          sizes="48px"
+                        />
                       </div>
                       <div className="min-w-0">
                         <p className="truncate text-xs font-semibold text-[#111827]">{product!.name}</p>

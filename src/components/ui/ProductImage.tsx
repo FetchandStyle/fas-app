@@ -45,6 +45,8 @@ export default function ProductImage({
         height={height}
         sizes={sizes}
         priority={priority}
+        placeholder="empty"
+        style={{ color: 'transparent', filter: 'blur(0px)' }}
         className={`${fitClass} ${className}`}
         onError={handleError}
       />
@@ -57,8 +59,10 @@ export default function ProductImage({
         src={imgSrc}
         alt={alt}
         fill
-        sizes={sizes}
+        sizes={sizes ?? '96px'}
         priority={priority}
+        placeholder="empty"
+        style={{ color: 'transparent', filter: 'blur(0px)' }}
         className={`${fitClass} ${className}`}
         onError={handleError}
       />

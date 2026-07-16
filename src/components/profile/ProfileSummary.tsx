@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import AppImage from '@/components/ui/AppImage';
 import Link from 'next/link';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { DEMO_USER } from '@/lib/demo/dashboard';
@@ -35,7 +35,7 @@ export function ProfileSummary({ data, onEdit }: ProfileSummaryProps) {
       <section className="mb-6 rounded-2xl border border-[#E5E7EB] bg-white p-5 shadow-sm sm:p-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
-            <Image
+            <AppImage
               src={DEMO_USER.avatarUrl}
               alt={DEMO_USER.displayName}
               width={72}

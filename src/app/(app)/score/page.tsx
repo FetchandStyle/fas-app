@@ -152,6 +152,8 @@ export default function ScorePage() {
               src={HERO_PRODUCT.image_url}
               alt={HERO_PRODUCT.name}
               fill
+              placeholder="empty"
+              style={{ color: 'transparent', filter: 'blur(0px)' }}
               className="object-cover"
             />
           </div>

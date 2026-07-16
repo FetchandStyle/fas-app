@@ -39,6 +39,8 @@ export default function ScansPage() {
                   src={scan.imageUrl}
                   alt={scan.title}
                   fill
+                  placeholder="empty"
+                  style={{ color: 'transparent', filter: 'blur(0px)' }}
                   className="object-cover"
                   sizes="(max-width: 640px) 100vw, 33vw"
                 />
