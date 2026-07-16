@@ -88,7 +88,7 @@ export default function RoomSceneIso({
                   style={{
                     left: `${item.x}%`,
                     top: `${item.y}%`,
-                    transform: `translate(-50%, -50%) rotate(${item.rotation}deg) scale(${item.scale})`,
+                    transform: `translate(-50%, calc(-50% - ${(item.lift ?? 0) * 28}px)) rotate(${item.rotation}deg) scale(${item.scale})`,
                   }}
                   onPointerDown={(e) => handlePointerDown(e, item)}
                 >

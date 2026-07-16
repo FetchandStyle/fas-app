@@ -1,9 +1,20 @@
 {
-  "_comment": "CC0/CC-BY sample GLBs from Khronos glTF-Sample-Assets. Run: npm run download-demo-models",
+  "_comment": "Las Vegas show demo — KayKit CC0 furniture (npm run setup-show-models). Khronos backups in khronos/.",
+  "showModels": {
+    "sofa.glb": "KayKit couch_pillows",
+    "chair.glb": "KayKit chair_A",
+    "table.glb": "KayKit table_low",
+    "bookcase.glb": "KayKit shelf_B_large_decorated",
+    "desk.glb": "KayKit table_medium_long",
+    "closet.glb": "KayKit cabinet_medium_decorated",
+    "rug.glb": "KayKit rug_rectangle_A"
+  },
+  "room": "Procedural DemoRoom component (src/components/room-builder/DemoRoom.tsx)",
+  "yashArchive": [],
   "sources": {
-    "chair.glb": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenChair/glTF-Binary/SheenChair.glb",
-    "sofa.glb": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenWoodLeatherSofa/glTF-Binary/SheenWoodLeatherSofa.glb",
-    "table.glb": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SpecularSilkPouf/glTF-Binary/SpecularSilkPouf.glb"
+    "khronos/chair.glb": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenChair/glTF-Binary/SheenChair.glb",
+    "khronos/sofa.glb": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenWoodLeatherSofa/glTF-Binary/SheenWoodLeatherSofa.glb",
+    "khronos/table.glb": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SpecularSilkPouf/glTF-Binary/SpecularSilkPouf.glb"
   },
   "skuMap": {
     "HEFTSB-3202": "sofa",
@@ -11,8 +22,8 @@
     "HEFTDC-5510": "chair",
     "HEFTST-2201": "chair",
     "HEFTCT-4410": "table",
-    "HEFTDT-8404": "table",
-    "HEFTBS-6620": "table",
-    "HEFTSD-8840": "table"
+    "HEFTDT-8404": "desk",
+    "HEFTBS-6620": "bookcase",
+    "HEFTSD-8840": "closet"
   }
 }

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import RoomCatalogPanel from '@/components/room-builder/RoomCatalogPanel';
+import RoomItemToolbar from '@/components/room-builder/RoomItemToolbar';
 import RoomSummaryBar from '@/components/room-builder/RoomSummaryBar';
 import RoomToolbar, { type ToolId } from '@/components/room-builder/RoomToolbar';
 import RoomViewport from '@/components/room-builder/RoomViewport';
@@ -13,8 +14,10 @@ import {
   getDefaultScanId,
   getRoomDimensions,
   loadScene,
+  resetScene,
   saveScene,
   sceneTotal,
+  clampLift,
   type PlacedItem,
   type RoomScene,
 } from '@/lib/demo/roomBuilder';
@@ -82,13 +85,93 @@ export default function RoomBuilderClient() {
     setTool('decorate');
   };
 
-  const handleRemove = (id: string) => {
-    updateScene((prev) => ({
-      ...prev,
-      placedItems: prev.placedItems.filter((item) => item.id !== id),
-    }));
-    setSelectedId((current) => (current === id ? null : current));
+  const handleRemove = useCallback(
+    (id: string) => {
+      updateScene((prev) => ({
+        ...prev,
+        placedItems: prev.placedItems.filter((item) => item.id !== id),
+      }));
+      setSelectedId((current) => (current === id ? null : current));
+    },
+    [updateScene],
+  );
+
+  const handleRotate = useCallback(
+    (id: string, delta: number) => {
+      updateScene((prev) => ({
+        ...prev,
+        placedItems: prev.placedItems.map((item) =>
+          item.id === id
+            ? { ...item, rotation: (((item.rotation + delta) % 360) + 360) % 360 }
+            : item,
+        ),
+      }));
+    },
+    [updateScene],
+  );
+
+  const handleLift = useCallback(
+    (id: string, delta: number) => {
+      updateScene((prev) => ({
+        ...prev,
+        placedItems: prev.placedItems.map((item) =>
+          item.id === id ? { ...item, lift: clampLift(item.lift + delta) } : item,
+        ),
+      }));
+    },
+    [updateScene],
+  );
+
+  const handleSetLift = useCallback(
+    (id: string, lift: number) => {
+      updateScene((prev) => ({
+        ...prev,
+        placedItems: prev.placedItems.map((item) =>
+          item.id === id ? { ...item, lift: clampLift(lift) } : item,
+        ),
+      }));
+    },
+    [updateScene],
+  );
+
+  const handleResetLayout = () => {
+    if (!scene) return;
+    pushHistory(scene.placedItems);
+    const next = resetScene(scanId);
+    setScene(next);
+    setSelectedId(null);
+    setSaveToast('Layout reset');
+    setTimeout(() => setSaveToast(''), 2500);
   };
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (!selectedId) return;
+      const tag = (e.target as HTMLElement)?.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+
+      if (e.key === 'q' || e.key === 'Q' || e.key === '[') {
+        e.preventDefault();
+        handleRotate(selectedId, -15);
+      } else if (e.key === 'e' || e.key === 'E' || e.key === ']') {
+        e.preventDefault();
+        handleRotate(selectedId, 15);
+      } else if (e.key === 'r' || e.key === 'R' || e.key === 'PageUp') {
+        e.preventDefault();
+        handleLift(selectedId, 0.12);
+      } else if (e.key === 'f' || e.key === 'F' || e.key === 'PageDown') {
+        e.preventDefault();
+        handleLift(selectedId, -0.12);
+      } else if (e.key === 'Escape') {
+        setSelectedId(null);
+      } else if (e.key === 'Delete' || e.key === 'Backspace') {
+        e.preventDefault();
+        handleRemove(selectedId);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [selectedId, handleRotate, handleLift, handleRemove]);
 
   const handleUndo = () => {
     if (history.length === 0) return;
@@ -114,6 +197,9 @@ export default function RoomBuilderClient() {
 
   const total = sceneTotal(scene.placedItems);
   const uniqueProducts = new Set(scene.placedItems.map((i) => i.sku)).size;
+  const selectedItem = selectedId
+    ? scene.placedItems.find((i) => i.id === selectedId) ?? null
+    : null;
 
   return (
     <div className="flex h-full flex-col overflow-hidden bg-[#F4F5F4]">
@@ -175,6 +261,16 @@ export default function RoomBuilderClient() {
         <RoomToolbar active={tool} onChange={setTool} />
 
         <div className="relative h-full min-h-0 min-w-0 flex-1">
+          {selectedItem && (
+            <RoomItemToolbar
+              item={selectedItem}
+              onRotate={(delta) => handleRotate(selectedItem.id, delta)}
+              onLift={(delta) => handleLift(selectedItem.id, delta)}
+              onRemove={() => handleRemove(selectedItem.id)}
+              onDeselect={() => setSelectedId(null)}
+            />
+          )}
+
           <RoomViewport
               viewMode={viewMode}
               zoom={zoom}
@@ -189,6 +285,7 @@ export default function RoomBuilderClient() {
                   ),
                 }))
               }
+              onLift={handleSetLift}
             />
 
             {/* Viewport controls */}
@@ -206,6 +303,15 @@ export default function RoomBuilderClient() {
                 className={`rounded-lg px-3 py-1.5 text-xs font-bold ${viewMode === '3d' ? 'bg-[#DB2777] text-white' : 'text-[#6B7280]'}`}
               >
                 3D
+              </button>
+              <div className="mx-1 h-5 w-px bg-[#E5E7EB]" />
+              <button
+                type="button"
+                onClick={handleResetLayout}
+                className="rounded-lg px-2 py-1.5 text-xs font-semibold text-[#6B7280] hover:bg-[#F9FAFB]"
+                title="Reset to default layout"
+              >
+                Reset
               </button>
               <div className="mx-1 h-5 w-px bg-[#E5E7EB]" />
               <button

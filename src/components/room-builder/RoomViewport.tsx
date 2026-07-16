@@ -27,6 +27,7 @@ interface RoomViewportProps {
   selectedId: string | null;
   onSelect: (id: string | null) => void;
   onMove: (id: string, x: number, y: number) => void;
+  onLift?: (id: string, lift: number) => void;
 }
 
 export default function RoomViewport({
@@ -36,6 +37,7 @@ export default function RoomViewport({
   selectedId,
   onSelect,
   onMove,
+  onLift,
 }: RoomViewportProps) {
   const floorRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<{ id: string; ox: number; oy: number } | null>(null);
@@ -112,6 +114,7 @@ export default function RoomViewport({
         zoom={zoom}
         onSelect={onSelect}
         onMove={onMove}
+        onLift={onLift}
         onWebGLError={() => setWebglRuntimeFailed(true)}
       />
     );
@@ -144,7 +147,7 @@ export default function RoomViewport({
               style={{
                 left: `${item.x}%`,
                 top: `${item.y}%`,
-                transform: `translate(-50%, -50%) rotate(${item.rotation}deg) scale(${item.scale * 0.7})`,
+                transform: `translate(-50%, calc(-50% - ${(item.lift ?? 0) * 28}px)) rotate(${item.rotation}deg) scale(${item.scale * 0.7})`,
               }}
               onPointerDown={(e) => handlePointerDown(e, item)}
             >

@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "download-demo-images": "node scripts/download-demo-images.mjs",
-    "download-demo-models": "node scripts/download-demo-models.mjs"
+    "download-demo-models": "node scripts/download-demo-models.mjs",
+    "setup-show-models": "node scripts/setup-show-models.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
