@@ -1,12 +1,13 @@
 'use client';
 
 import { demoProductBySku } from '@/lib/demo/catalog';
-import { formatLiftHeight, type PlacedItem } from '@/lib/demo/roomBuilder';
+import { formatLiftHeight, formatScalePercent, type PlacedItem } from '@/lib/demo/roomBuilder';
 
 interface RoomItemToolbarProps {
   item: PlacedItem;
   onRotate: (delta: number) => void;
   onLift: (delta: number) => void;
+  onScale: (delta: number) => void;
   onRemove: () => void;
   onDeselect: () => void;
 }
@@ -15,6 +16,7 @@ export default function RoomItemToolbar({
   item,
   onRotate,
   onLift,
+  onScale,
   onRemove,
   onDeselect,
 }: RoomItemToolbarProps) {
@@ -65,6 +67,26 @@ export default function RoomItemToolbar({
         title="Raise (R)"
       >
         ↑
+      </button>
+      <div className="h-5 w-px bg-[#E5E7EB]" />
+      <button
+        type="button"
+        onClick={() => onScale(-0.1)}
+        className="rounded-lg border border-[#E5E7EB] px-2.5 py-1.5 text-xs font-bold text-[#374151] hover:bg-[#F9FAFB]"
+        title="Smaller (-)"
+      >
+        −
+      </button>
+      <span className="min-w-[3rem] text-center text-xs font-medium text-[#6B7280]">
+        {formatScalePercent(item.scale)}
+      </span>
+      <button
+        type="button"
+        onClick={() => onScale(0.1)}
+        className="rounded-lg border border-[#E5E7EB] px-2.5 py-1.5 text-xs font-bold text-[#374151] hover:bg-[#F9FAFB]"
+        title="Larger (+)"
+      >
+        +
       </button>
       <div className="h-5 w-px bg-[#E5E7EB]" />
       <button

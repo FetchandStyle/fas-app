@@ -7,6 +7,13 @@
     "bookcase.glb": "KayKit shelf_B_large_decorated",
     "desk.glb": "KayKit table_medium_long",
     "closet.glb": "KayKit cabinet_medium_decorated",
+    "magnus-table.glb": "Generated Magnus 31\" Round (HEFTDT-8404) — npm run generate-magnus-table",
+    "oslo-side-table.glb": "Generated Oslo Round Side (HEFTST-2201) — npm run generate-oslo-side-table",
+    "lund-sofa.glb": "Generated Lund 3-Seater Sofa Bed (HEFTSB-3202) — npm run generate-lund-sofa",
+    "bergen-table.glb": "Generated Bergen Oval Coffee Table (HEFTCT-4410) — npm run generate-bergen-table",
+    "ari-chair.glb": "Generated Ari Dining Chair (HEFTDC-5510) — npm run generate-ari-chair",
+    "nord-bookshelf.glb": "Generated Nord 3-Tier Bookshelf (HEFTBS-6620) — npm run generate-nord-bookshelf",
+    "vika-sideboard.glb": "Generated Vika Modern Sideboard (HEFTSD-8840) — npm run generate-vika-sideboard",
     "rug.glb": "KayKit rug_rectangle_A"
   },
   "room": "Procedural DemoRoom component (src/components/room-builder/DemoRoom.tsx)",
@@ -17,13 +24,13 @@
     "khronos/table.glb": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SpecularSilkPouf/glTF-Binary/SpecularSilkPouf.glb"
   },
   "skuMap": {
-    "HEFTSB-3202": "sofa",
+    "HEFTSB-3202": "lund",
     "HEFTSF-7730": "sofa",
-    "HEFTDC-5510": "chair",
-    "HEFTST-2201": "chair",
-    "HEFTCT-4410": "table",
-    "HEFTDT-8404": "desk",
-    "HEFTBS-6620": "bookcase",
-    "HEFTSD-8840": "closet"
+    "HEFTDC-5510": "ari",
+    "HEFTST-2201": "oslo",
+    "HEFTCT-4410": "bergen",
+    "HEFTDT-8404": "magnus",
+    "HEFTBS-6620": "nord",
+    "HEFTSD-8840": "vika"
   }
 }

@@ -9,7 +9,14 @@
     "lint": "eslint",
     "download-demo-images": "node scripts/download-demo-images.mjs",
     "download-demo-models": "node scripts/download-demo-models.mjs",
-    "setup-show-models": "node scripts/setup-show-models.mjs"
+    "setup-show-models": "node scripts/setup-show-models.mjs",
+    "generate-magnus-table": "node scripts/generate-magnus-table-glb.mjs",
+    "generate-oslo-side-table": "node scripts/generate-oslo-side-table-glb.mjs",
+    "generate-lund-sofa": "node scripts/generate-lund-sofa-glb.mjs",
+    "generate-bergen-table": "node scripts/generate-bergen-table-glb.mjs",
+    "generate-ari-chair": "node scripts/generate-ari-chair-glb.mjs",
+    "generate-nord-bookshelf": "node scripts/generate-nord-bookshelf-glb.mjs",
+    "generate-vika-sideboard": "node scripts/generate-vika-sideboard-glb.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",

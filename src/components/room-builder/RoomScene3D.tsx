@@ -247,7 +247,7 @@ export default function RoomScene3D({
         </Suspense>
       </Canvas>
       <p className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-white/90 px-3 py-1 text-[10px] font-medium text-[#6B7280] shadow-sm">
-        Move: left-drag · Orbit: right-drag · Rotate: Q/E · Lift: R/F or Shift+drag up
+        Move: left-drag · Orbit: right-drag · Rotate: Q/E · Lift: R/F · Size: +/−
       </p>
     </div>
   );

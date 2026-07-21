@@ -17,14 +17,27 @@ export interface PlacedItem {
 export const LIFT_STEP = 0.12;
 export const LIFT_MAX = 2.4;
 
+export const SCALE_STEP = 0.1;
+export const SCALE_MIN = 0.4;
+export const SCALE_MAX = 2.5;
+export const DEFAULT_ITEM_SCALE = 1;
+
 export function clampLift(value: number): number {
   return Math.min(LIFT_MAX, Math.max(0, value));
+}
+
+export function clampScale(value: number): number {
+  return Math.min(SCALE_MAX, Math.max(SCALE_MIN, value));
 }
 
 export function formatLiftHeight(lift: number): string {
   if (lift < 0.05) return 'Floor';
   const inches = Math.round(lift * 39.37);
   return `${inches}"`;
+}
+
+export function formatScalePercent(scale: number): string {
+  return `${Math.round(scale * 100)}%`;
 }
 
 function withDefaults(item: PlacedItem): PlacedItem {
@@ -51,27 +64,30 @@ export const ROOM_DIMENSIONS: Record<string, RoomDimensions> = {
   'scan-3': { width: 12, depth: 10, height: 9 },
 };
 
-export const ROOM_BUILDER_PRODUCTS: Product[] = DEMO_CATALOG;
+/** Room builder palette — excludes items not yet modeled for 3D demo */
+export const ROOM_BUILDER_PRODUCTS: Product[] = DEMO_CATALOG.filter(
+  (p) => p.sku !== 'HEFTSF-7730',
+);
 
 const DEFAULT_SCENES: Record<string, PlacedItem[]> = {
   'scan-3': [
-    { id: 'd1', sku: 'HEFTSF-7730', x: 32, y: 52, scale: 0.95, rotation: 0, lift: 0 },
-    { id: 'd2', sku: 'HEFTCT-4410', x: 58, y: 58, scale: 0.85, rotation: 0, lift: 0 },
-    { id: 'd3', sku: 'HEFTST-2201', x: 74, y: 48, scale: 0.8, rotation: 12, lift: 0 },
-    { id: 'd4', sku: 'HEFTBS-6620', x: 82, y: 30, scale: 0.9, rotation: -90, lift: 0 },
-    { id: 'd5', sku: 'HEFTSD-8840', x: 20, y: 32, scale: 0.85, rotation: 90, lift: 0 },
-    { id: 'd6', sku: 'HEFTDC-5510', x: 55, y: 74, scale: 0.75, rotation: -20, lift: 0 },
+    { id: 'd1', sku: 'HEFTSB-3202', x: 32, y: 52, scale: 1, rotation: 0, lift: 0 },
+    { id: 'd2', sku: 'HEFTCT-4410', x: 58, y: 58, scale: 1, rotation: 0, lift: 0 },
+    { id: 'd3', sku: 'HEFTST-2201', x: 74, y: 48, scale: 0.95, rotation: 12, lift: 0 },
+    { id: 'd4', sku: 'HEFTBS-6620', x: 82, y: 30, scale: 1, rotation: -90, lift: 0 },
+    { id: 'd5', sku: 'HEFTSD-8840', x: 20, y: 32, scale: 1, rotation: 90, lift: 0 },
+    { id: 'd6', sku: 'HEFTDC-5510', x: 55, y: 74, scale: 0.95, rotation: -20, lift: 0 },
   ],
   'scan-1': [
-    { id: 'd1', sku: 'HEFTSB-3202', x: 38, y: 50, scale: 0.95, rotation: 0, lift: 0 },
-    { id: 'd2', sku: 'HEFTCT-4410', x: 62, y: 58, scale: 0.8, rotation: 0, lift: 0 },
-    { id: 'd3', sku: 'HEFTST-2201', x: 76, y: 44, scale: 0.75, rotation: 0, lift: 0 },
+    { id: 'd1', sku: 'HEFTSB-3202', x: 38, y: 50, scale: 1, rotation: 0, lift: 0 },
+    { id: 'd2', sku: 'HEFTCT-4410', x: 62, y: 58, scale: 1, rotation: 0, lift: 0 },
+    { id: 'd3', sku: 'HEFTST-2201', x: 76, y: 44, scale: 0.95, rotation: 0, lift: 0 },
   ],
   'scan-2': [
-    { id: 'd1', sku: 'HEFTSF-7730', x: 30, y: 48, scale: 0.9, rotation: 0, lift: 0 },
-    { id: 'd2', sku: 'HEFTDT-8404', x: 58, y: 62, scale: 0.85, rotation: 0, lift: 0 },
-    { id: 'd3', sku: 'HEFTDC-5510', x: 72, y: 38, scale: 0.7, rotation: 25, lift: 0 },
-    { id: 'd4', sku: 'HEFTBS-6620', x: 84, y: 28, scale: 0.85, rotation: -90, lift: 0 },
+    { id: 'd1', sku: 'HEFTSB-3202', x: 30, y: 48, scale: 1, rotation: 0, lift: 0 },
+    { id: 'd2', sku: 'HEFTDT-8404', x: 58, y: 62, scale: 1, rotation: 0, lift: 0 },
+    { id: 'd3', sku: 'HEFTDC-5510', x: 72, y: 38, scale: 0.95, rotation: 25, lift: 0 },
+    { id: 'd4', sku: 'HEFTBS-6620', x: 84, y: 28, scale: 1, rotation: -90, lift: 0 },
   ],
 };
 
@@ -134,7 +150,7 @@ export function createPlacedItem(sku: string): PlacedItem {
     sku,
     x: 30 + Math.random() * 40,
     y: 35 + Math.random() * 30,
-    scale: 0.75,
+    scale: DEFAULT_ITEM_SCALE,
     rotation: 0,
     lift: 0,
   };

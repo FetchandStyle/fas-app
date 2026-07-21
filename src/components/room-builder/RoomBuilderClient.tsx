@@ -18,6 +18,8 @@ import {
   saveScene,
   sceneTotal,
   clampLift,
+  clampScale,
+  SCALE_STEP,
   type PlacedItem,
   type RoomScene,
 } from '@/lib/demo/roomBuilder';
@@ -122,6 +124,18 @@ export default function RoomBuilderClient() {
     [updateScene],
   );
 
+  const handleScale = useCallback(
+    (id: string, delta: number) => {
+      updateScene((prev) => ({
+        ...prev,
+        placedItems: prev.placedItems.map((item) =>
+          item.id === id ? { ...item, scale: clampScale(item.scale + delta) } : item,
+        ),
+      }));
+    },
+    [updateScene],
+  );
+
   const handleSetLift = useCallback(
     (id: string, lift: number) => {
       updateScene((prev) => ({
@@ -162,6 +176,12 @@ export default function RoomBuilderClient() {
       } else if (e.key === 'f' || e.key === 'F' || e.key === 'PageDown') {
         e.preventDefault();
         handleLift(selectedId, -0.12);
+      } else if (e.key === '+' || e.key === '=') {
+        e.preventDefault();
+        handleScale(selectedId, SCALE_STEP);
+      } else if (e.key === '-' || e.key === '_') {
+        e.preventDefault();
+        handleScale(selectedId, -SCALE_STEP);
       } else if (e.key === 'Escape') {
         setSelectedId(null);
       } else if (e.key === 'Delete' || e.key === 'Backspace') {
@@ -171,7 +191,7 @@ export default function RoomBuilderClient() {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [selectedId, handleRotate, handleLift, handleRemove]);
+  }, [selectedId, handleRotate, handleLift, handleScale, handleRemove]);
 
   const handleUndo = () => {
     if (history.length === 0) return;
@@ -266,6 +286,7 @@ export default function RoomBuilderClient() {
               item={selectedItem}
               onRotate={(delta) => handleRotate(selectedItem.id, delta)}
               onLift={(delta) => handleLift(selectedItem.id, delta)}
+              onScale={(delta) => handleScale(selectedItem.id, delta)}
               onRemove={() => handleRemove(selectedItem.id)}
               onDeselect={() => setSelectedId(null)}
             />
